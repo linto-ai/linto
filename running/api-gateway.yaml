@@ -1,0 +1,33 @@
+networks:
+  linto:
+    external: true
+  net_stt_services:
+    external: true
+services:
+  api-gateway:
+    command:
+      - --run-cmd=DEBUG=saas-api-gateway* node app.js
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.api-gateway-router.entrypoints=websecure
+        - traefik.http.routers.api-gateway-router.rule=Host(`localhost`) && PathPrefix(`/gateway`)
+        - traefik.http.routers.api-gateway-router.tls=true
+        - traefik.http.services.api-gateway-service.loadbalancer.server.port=80
+        - traefik.http.middlewares.api-gateway-stripprefix.stripPrefix.prefixes=/gateway
+        - traefik.http.routers.api-gateway-router.middlewares=api-gateway-stripprefix@docker
+      mode: replicated
+      placement:
+        constraints:
+          - node.labels.ip==ingress
+          - node.role==manager
+      replicas: 1
+    environment:
+      COMPONENT: ServiceWatcher,WebServer
+    image: lintoai/linto-api-gateway:latest-unstable
+    networks:
+      - net_stt_services
+      - $DOCKER_NETWORK
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+version: "3.7"

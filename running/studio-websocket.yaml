@@ -1,0 +1,25 @@
+networks:
+  linto:
+    external: true
+services:
+  studio-websocket:
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.studio-websocket-router.entrypoints=websecure
+        - traefik.http.routers.studio-websocket-router.rule=Host(`localhost`) && PathPrefix(`/ws`)
+        - traefik.http.routers.studio-websocket-router.tls=true
+        - traefik.http.services.studio-websocket-service.loadbalancer.server.port=80
+        - traefik.http.middlewares.studio-websocket-stripprefix.stripPrefix.prefixes=/ws
+        - traefik.http.routers.studio-websocket-router.middlewares=studio-websocket-stripprefix@docker
+      mode: replicated
+      replicas: 1
+    environment:
+      COMPONENTS: WebServer,Websocket
+      CONVO_API: http://studio-api/api
+      WEBSERVER_HTTP_PORT: 80
+      WEBSERVER_WS_PATH: /socket.io
+    image: lintoai/studio-websocket:latest-unstable
+    networks:
+      - linto
+version: "3.7"

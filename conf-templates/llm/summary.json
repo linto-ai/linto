@@ -1,0 +1,23 @@
+{
+  "type": "summary",
+  "fields": 2,
+  "name": "summary",
+  "description": {
+    "fr": "Résumé des tours"
+  },
+  "backend": "vLLM",
+  "flavor": [
+    {
+      "name": "llama3",
+      "modelName": "casperhansen/llama-3-8b-instruct-awq",
+      "totalContextLength": 8192,
+      "maxGenerationLength": 2048,
+      "tokenizerClass": "LlamaTokenizer",
+      "createNewTurnAfter": 300,
+      "summaryTurns": 2,
+      "maxNewTurns": 10,
+      "temperature": 0.1,
+      "top_p": 0.8
+    }
+  ]
+}

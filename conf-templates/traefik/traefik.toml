@@ -1,0 +1,37 @@
+[providers.docker]
+  endpoint = "unix:///var/run/docker.sock"
+  swarmMode = true
+  watch = true
+  exposedByDefault = false
+  network = "$DOCKER_NETWORK"
+
+[providers.file]
+  filename = "dynamic.toml"
+  watch = true
+
+[entryPoints.web]
+  address = ":80"
+  [entryPoints.web.http.redirections.entryPoint]
+    to = "websecure"
+    scheme = "https"
+    
+[entryPoints.websecure]
+  address = ":443"
+
+[certificatesResolvers.leresolver.acme]
+  email = "$ACME_EMAIL"
+  storage = "acme.json"
+  [certificatesResolvers.leresolver.acme.httpChallenge]
+    entryPoint = "web"
+
+[api]
+  dashboard = true
+  insecure = false
+
+[accessLog]
+  filePath = "/var/log/traefik/access.log"
+  bufferingSize = 100
+
+[log]
+  level = "DEBUG"
+  filePath = "/var/log/traefik/traefik.log"
