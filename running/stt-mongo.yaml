@@ -1,0 +1,19 @@
+networks:
+  linto:
+    external: true
+  net_stt_services:
+    external: true
+services:
+  stt-mongo:
+    deploy:
+      mode: replicated
+      placement:
+        constraints:
+          - node.role==manager
+      replicas: 1
+    image: mongo:6.0.2
+    networks:
+      - net_stt_services
+    volumes:
+      - /home/dam/deployment_config/database/db-stt-services-data:/data/db
+version: "3.7"
