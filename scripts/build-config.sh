@@ -78,7 +78,8 @@ build_traefik() {
     sudo rm -rf ${LINTO_LOCAL_MOUNT}/traefik/
     mkdir -p ${LINTO_SHARED_MOUNT}/traefik/ \
         ${LINTO_LOCAL_MOUNT}/traefik/logs \
-        ${LINTO_SHARED_MOUNT}/certs/
+        ${LINTO_SHARED_MOUNT}/certs/ \
+        ${CERTS_DIR}
 
     sudo touch ${LINTO_SHARED_MOUNT}/certs/acme.json
     sudo chmod 600 ${LINTO_SHARED_MOUNT}/certs/acme.json
@@ -113,7 +114,6 @@ generate_certificate() {
     echo "Generating certificates..."
     domain=$1
 
-    mkdir -p "$CERTS_DIR"
     cert_file="$CERTS_DIR/${domain}.pem"
     cert_key_file="$CERTS_DIR/${domain}-key.pem"
 

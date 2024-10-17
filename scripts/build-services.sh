@@ -28,9 +28,6 @@ generate_yaml_files() {
             -V DEPLOYMENT_MODE=$DEPLOYMENT_MODE \
             -V EXPOSE_TRAEFIK=$expose_traefik \
             -V EXPOSE_GATEWAY=$expose_gateway \
-            -V DIARIZATION_DEFAULT=$diarization_service \
-            -V GPU_MODE=$gpu_mode \
-            -V ENABLE_SESSION_STUDIO=$enable_session_studio \
             "${service_dir}/config.jsonnet" | jq -r '.service_name')
 
         echo -e "\e[32mBuilding $FILE_NAME.yml\e[0m"
@@ -42,6 +39,7 @@ generate_yaml_files() {
             -V LINTO_LOCAL_MOUNT=$LINTO_LOCAL_MOUNT \
             -V LINTO_SHARED_MOUNT=$LINTO_SHARED_MOUNT \
             -V LINTO_IMAGE_TAG=$LINTO_IMAGE_TAG \
+            -V LINTO_FRONT_THEME=$LINTO_FRONT_THEME \
             -V EXPOSE_TRAEFIK=$expose_traefik \
             -V EXPOSE_GATEWAY=$expose_gateway \
             -V DIARIZATION_DEFAULT=$diarization_service \
