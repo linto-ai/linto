@@ -66,6 +66,8 @@ local patch = {
         LANGUAGE: 'en-US',
         MODEL: 'large-v3',
         DEVICE: gpu_mode,
+        NVIDIA_VISIBLE_DEVICES: '0',
+        NVIDIA_DRIVER_CAPABILITIES: 'all',
         CONCURRENCY: '1'
       },
     },

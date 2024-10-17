@@ -13,6 +13,10 @@ local patch = {
         'net_llm_services',
         '$DOCKER_NETWORK',
       ],
+      environment: {
+        NVIDIA_VISIBLE_DEVICES: '0',
+        NVIDIA_DRIVER_CAPABILITIES: 'all',
+      },
     },
   },
   networks: {
