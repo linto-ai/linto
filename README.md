@@ -4,6 +4,8 @@
 
 The LinTO Deployment Tool streamlines the setup, configuration, and deployment of LinTO Services, such as transcription and LinTO Studio. Leveraging Docker in Swarm mode, this tool efficiently manages complex deployments, including transcription services, diarization, and reverse proxy setups. It provides a simplified interface for deploying the entire LinTO suite on a single node, while also enabling scalability across multiple nodes if required.
 
+For more details on LinTO Studio's Architecture, refer to [LINTO-STUDIO.md](LINTO-STUDIO.md).
+
 ## Features
 
 - **Setup Script**: The `setup.sh` script initializes the environment, including configuring Docker in Swarm mode, setting up required networks, installing dependencies, and preparing services for deployment. It also generates a set of `.yaml` files in the `running` directory, which are later used by the `start.sh` script to launch the services. This process will not affect any Docker or Docker Compose services that are already running on your system.
