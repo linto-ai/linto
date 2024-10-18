@@ -9,7 +9,7 @@ local expose_with_gateway = std.extVar('EXPOSE_GATEWAY') == "true";
   //Generals
   build_me: true,  //Set to false to disable this build as a YAML file in ./running dir
   service_name: 'stt-english-whisper-v3',
-  image: 'lintoai/linto-platform-transcription-service:' + tag,
+  image: 'lintoai/linto-transcription-service:' + tag,
   reserve_memory: '',  //128M
   reserve_cpu: '',  //0.5
   limit_cpu: '',  //1
