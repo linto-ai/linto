@@ -61,6 +61,22 @@ https://github.com/linto-ai/linto-stt
 
 LinTO-diarization est une API pour la diarisation des locuteurs (segmenter un flux audio en segments homogènes selon l'identité du locuteur), avec certaines capacités d'identification des locuteurs lorsque des échantillons audio de locuteurs connus sont fournis. Cette API prend en charge des tâches fournies par le service de transcription et utilise des GPU.
 
+### Ponctuation
+
+LinTO-Punctuation est un service LinTO pour la prédiction de la ponctuation. Il prédit la ponctuation à partir de texte brut ou de transcription brute. Cette API prend en charge des tâches fournies par le service de transcription et utilise des GPU.
+
+Docker build disponible : linto-punctuation
+
+https://github.com/linto-ai/linto-punctuation
+
+### Résumé automatique
+
+LLM-Gateway est l'API pour le résumé basé sur des modèles LLM. Implémente la méthode Refine pour effectuer le résumé de documents longs. Elle fonctionne comme le service de Transcription en préparant des tâches pour un serveur de LLM au format Open AI (Vllm, Aphrodite engine..)
+
+Docker build disponible.
+
+https://github.com/linto-ai/llm-gateway
+
 Docker builds disponibles : linto-diarization-pyannote, linto-diarization-simple
 
 https://github.com/linto-ai/linto-diarization
