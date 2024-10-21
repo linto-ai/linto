@@ -1,5 +1,6 @@
 local domain = std.extVar('LINTO_DOMAIN');
 local repo = std.extVar('DOCKER_REGISTRY');
+local redis_password = std.extVar('REDIS_PASSWORD');
 
 {
   //Generals
@@ -44,5 +45,5 @@ local repo = std.extVar('DOCKER_REGISTRY');
   //API Gateway
 
   //Override command
-  command: '/bin/sh -c "redis-stack-server --requirepass $REDIS_PASSWORD"', //from .dockerenv
+  command: '/bin/sh -c "redis-stack-server --requirepass '+redis_password+'"', //from .dockerenv
 }

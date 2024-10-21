@@ -22,13 +22,16 @@ generate_yaml_files() {
     local diarization_service="${5:-}"
 
     if [ -d "$service_dir" ] && [ -s "$service_dir/config.jsonnet" ] && [ -s "$service_dir/template.jsonnet" ]; then
-        FILE_NAME=$(jsonnet \
-            -V LINTO_IMAGE_TAG=$LINTO_IMAGE_TAG \
-            -V LINTO_DOMAIN=$LINTO_DOMAIN \
-            -V DEPLOYMENT_MODE=$DEPLOYMENT_MODE \
-            -V EXPOSE_TRAEFIK=$expose_traefik \
-            -V EXPOSE_GATEWAY=$expose_gateway \
-            "${service_dir}/config.jsonnet" | jq -r '.service_name')
+        FILE_NAME=$(
+            jsonnet \
+                -V LINTO_IMAGE_TAG=$LINTO_IMAGE_TAG \
+                -V LINTO_DOMAIN=$LINTO_DOMAIN \
+                -V REDIS_PASSWORD=$REDIS_PASSWORD \
+                -V DEPLOYMENT_MODE=$DEPLOYMENT_MODE \
+                -V EXPOSE_TRAEFIK=$expose_traefik \
+                -V EXPOSE_GATEWAY=$expose_gateway \
+                "${service_dir}/config.jsonnet" | jq -r '.service_name'
+        )
 
         echo -e "\e[32mBuilding $FILE_NAME.yml\e[0m"
 
@@ -38,6 +41,7 @@ generate_yaml_files() {
             -V DOCKER_NETWORK=$DOCKER_NETWORK \
             -V LINTO_LOCAL_MOUNT=$LINTO_LOCAL_MOUNT \
             -V LINTO_SHARED_MOUNT=$LINTO_SHARED_MOUNT \
+            -V REDIS_PASSWORD=$REDIS_PASSWORD \
             -V LINTO_IMAGE_TAG=$LINTO_IMAGE_TAG \
             -V LINTO_FRONT_THEME=$LINTO_FRONT_THEME \
             -V EXPOSE_TRAEFIK=$expose_traefik \

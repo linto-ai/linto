@@ -14,7 +14,7 @@ local patch = {
         '/var/run/docker.sock:/var/run/docker.sock:ro',
       ],
       networks: [
-        '$DOCKER_NETWORK',
+        network,
         'net'
       ],
     },

@@ -56,7 +56,7 @@ local patch = {
       networks: [
         'net_studio',
         'session_network',
-        network
+        network,
       ],
     },
     studio_mongodb: {

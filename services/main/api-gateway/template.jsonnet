@@ -1,6 +1,7 @@
 local base = import '../../../jsonnet/base.libsonnet';
 local config = import 'config.jsonnet';
 local service = base.Service(config);
+local network = std.extVar('DOCKER_NETWORK');
 
 local patch = {
   services: {
@@ -10,7 +11,7 @@ local patch = {
       ],
       networks: [
         'net_stt_services',
-        '$DOCKER_NETWORK',
+        network,
       ],
       environment: {
         COMPONENT: 'ServiceWatcher,WebServer',
