@@ -2,6 +2,7 @@ local base = import '../../../jsonnet/base.libsonnet';
 local config = import 'config.jsonnet';
 local service = base.Service(config);
 local shared_mount = std.extVar('LINTO_SHARED_MOUNT');
+local redis_password = std.extVar('REDIS_PASSWORD');
 
 local gpu_mode = std.extVar('GPU_MODE');
 
@@ -18,7 +19,7 @@ local patch = {
       ],
       environment: {
         SERVICES_BROKER: 'redis://task-broker-redis:6379',
-        BROKER_PASS: '$REDIS_PASSWORD',
+        BROKER_PASS: redis_password,
         QUEUE_NAME: 'diarization-pyannote',
         SERVICE_MODE: 'task',
         SERVICE_NAME: config.service_name,

@@ -2,6 +2,7 @@ local base = import '../../../jsonnet/base.libsonnet';
 local config = import 'config.jsonnet';
 local service = base.Service(config);
 local shared_mount = std.extVar('LINTO_SHARED_MOUNT');
+local network = std.extVar('DOCKER_NETWORK');
 
 local patch = {
   services: {
@@ -11,7 +12,7 @@ local patch = {
       ],
       networks: [
         'net_llm_services',
-        '$DOCKER_NETWORK',
+        network,
       ],
       environment: {
         NVIDIA_VISIBLE_DEVICES: '0',

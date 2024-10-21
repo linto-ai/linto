@@ -11,6 +11,7 @@ local patch = {
     [config.service_name]: {
       networks: [
         'session_network',
+        network,
       ],
       environment: {
         SESSION_API_BASE_PATH:'/',
