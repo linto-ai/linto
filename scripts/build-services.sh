@@ -1,7 +1,11 @@
 #!/bin/bash
 set -uea
 SUDO=''
-source .envdefault
+if [ -f ".build" ]; then
+    source .build
+else
+    source .envdefault
+fi
 
 # Get the current working directory
 BASE_DIR=$(pwd)
@@ -115,6 +119,12 @@ build_live_streaming() {
     generate_yaml_files "services/live-session/session-transcriber"
 }
 
+build_monitoring() {
+    echo "Building Monitoring..."
+    generate_yaml_files "services/monitoring/celery-flower-monitor" true
+    generate_yaml_files "services/monitoring/swarmpit" true
+}
+
 # Parameters: $1 = service name,
 # $2 = domain,$3 = deployment mode
 
@@ -152,6 +162,9 @@ main() {
         ;;
     live-streaming)
         build_live_streaming $traefik_exposed $gateway_exposed
+        ;;
+    monitoring)
+        build_monitoring
         ;;
     main)
         build_main_service

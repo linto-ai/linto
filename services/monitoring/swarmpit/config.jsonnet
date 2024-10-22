@@ -20,8 +20,8 @@ local domain = std.extVar('LINTO_DOMAIN');
   expose_with_api_gateway: false,
 
   //Traefik
-  traefik_endpoint: '/swarmpit',
-  traefik_strip_prefix: '',
+  traefik_endpoint: '/monitoring-swarmpit',
+  traefik_strip_prefix: '/monitoring-swarmpit',
   traefik_domain: domain,
   traefik_server_port: 8080,
   use_basic_auth: false,

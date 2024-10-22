@@ -16,7 +16,7 @@ local patch = {
         SERVICE_PORT: 80,
         SERVICES_BROKER: 'redis://task-broker-redis:6379',
         BROKER_PASS: redis_password,
-        LINTO_STACK_TASK_MONITOR_SERVING_URL: 'celery',
+        LINTO_STACK_TASK_MONITOR_SERVING_URL: 'monitoring-celery',
       },
     },
   },

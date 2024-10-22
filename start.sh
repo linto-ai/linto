@@ -2,6 +2,12 @@
 set -uea
 SUDO=''
 . .envdefault # Source all default env
+if [ -f ".build" ]; then
+  . .build
+else
+  . .envdefault
+fi
+
 if [ -f ./running/.dockerenv ]; then
   . ./running/.dockerenv # Local overrides
 fi
