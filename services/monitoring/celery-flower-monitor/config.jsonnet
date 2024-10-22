@@ -1,12 +1,11 @@
 local tag = std.extVar('LINTO_IMAGE_TAG');
-local repo = std.extVar('DOCKER_REGISTRY');
 local domain = std.extVar('LINTO_DOMAIN');
 
 {
   //Generals
   build_me: true,  //Set to false to disable this build as a YAML file in ./running dir
   service_name: 'celery_flower_monitor',
-  image: repo + '/saas/linto-platform-tasks-monitor:' + tag,
+  image: 'lintoai/linto-tasks-monitor:latest',
   reserve_memory: '',  //128M
   reserve_cpu: '',  //0.5
   limit_cpu: '',  //1
@@ -20,7 +19,7 @@ local domain = std.extVar('LINTO_DOMAIN');
   expose_with_api_gateway: false,
 
   //Traefik
-  traefik_endpoint: '/celery',
+  traefik_endpoint: '/monitoring-celery',
   traefik_strip_prefix: '',
   traefik_domain: domain,
   traefik_server_port: 80,

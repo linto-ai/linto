@@ -44,6 +44,7 @@ dialog_services_show() {
         4 "Summarization service" off \
         5 "Live streaming service" off \
         6 "LinTO Studio" off \
+        7 "Monitoring tools" off \
         3>&1 1>&2 2>&3 | tr '\n' ' ' | sed 's/ *$//'
 }
 

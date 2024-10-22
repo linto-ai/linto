@@ -1,7 +1,11 @@
 #!/bin/bash
 set -uea
 SUDO=''
-source .envdefault
+if [ -f ".build" ]; then
+    source .build
+else
+    source .envdefault
+fi
 
 CONFIG_TEMPLATES="./conf-templates"
 CERTS_DIR="${LINTO_SHARED_MOUNT}/certs-mkcert"

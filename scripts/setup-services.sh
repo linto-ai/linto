@@ -1,8 +1,11 @@
 #!/bin/bash
 set -uea
 SUDO=''
-source .envdefault # Source all default env
-
+if [ -f ".build" ]; then
+    source .build
+else
+    source .envdefault
+fi
 CONFIG_TEMPLATES="./conf-templates"
 
 init_swarm_and_update_node() {
@@ -135,6 +138,9 @@ trigger_build_service() {
         6)
             ./scripts/build-config.sh "studio"
             ./scripts/build-services.sh "studio" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" $live_streaming_enable #By default it's exposed to Traefik
+            ;;
+        7)
+            ./scripts/build-services.sh "monitoring" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE"
             ;;
         *)
             echo "Invalid option: $service"
