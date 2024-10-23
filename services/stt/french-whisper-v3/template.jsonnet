@@ -34,7 +34,9 @@ local patch = {
         RESOLVE_POLICY: 'ANY',
         DIARIZATION_DEFAULT: diarization_default,
         MODEL_QUALITY: 1,
-        ACCOUSTIC: 1
+        ACCOUSTIC: 1,
+        SWAGGER_URLS: '/stt-french-whisper-v3',
+        SWAGGER_PREFIX: '/stt-french-whisper-v3',
       },
     },
     [config.service_name + '_workers']: {
