@@ -23,8 +23,8 @@ local expose_with_gateway = std.extVar('EXPOSE_GATEWAY') == "true";
   expose_with_api_gateway: expose_with_gateway,
 
   //Traefik
-  traefik_endpoint: '/llmgateway',
-  traefik_strip_prefix: '/llmgateway',
+  traefik_endpoint: '/llm-gateway',
+  traefik_strip_prefix: '/llm-gateway',
   traefik_server_port: 80,
   traefik_domain: domain,
   use_basic_auth: false,
@@ -52,7 +52,7 @@ local expose_with_gateway = std.extVar('EXPOSE_GATEWAY') == "true";
 
   gateway_define_endpoints: [
     {
-      endpoint: 'llmgateway',
+      endpoint: 'llm-gateway',
       middlewares_order: 'logs',
       middlewares: [
         { name: 'logs', params: { debug: '*' } }
