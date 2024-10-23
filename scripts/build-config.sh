@@ -1,8 +1,8 @@
 #!/bin/bash
 set -uea
 SUDO=''
-if [ -f ".build" ]; then
-    source .build
+if [ -f ".env" ]; then
+    source .env
 else
     source .envdefault
 fi

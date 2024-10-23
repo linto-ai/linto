@@ -2,8 +2,11 @@
 
 set -uea
 SUDO=''
-. .envdefault # Source all default env
-
+if [ -f ".env" ]; then
+    . .env
+else
+    . .envdefault
+fi
 RUNNING_DIR="./running"
 
 CONFIG_TEMPLATES="./conf-templates"
