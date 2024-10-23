@@ -25,7 +25,7 @@ For more details on LinTO Studio's Architecture, refer to [LINTO-STUDIO.md](LINT
 
 2. **Configure the environment variables** by modifying `.envdefault` or creating a `.env` file to override the defaults. Environment variables are crucial for customizing your deployment. They define paths, network names, domain configurations, and other parameters used by the scripts during setup and deployment. By using a `.env` file, you can personalize your setup without modifying the default settings, which is useful for managing different environments.
 
-3. **IRun the setup script** to prepare the environment:
+3. **Run the setup script** to prepare the environment:
 
    ```bash
    ./setup.sh
@@ -33,7 +33,7 @@ For more details on LinTO Studio's Architecture, refer to [LINTO-STUDIO.md](LINT
 
    The `setup.sh` script is interactive and will guide you through several key steps, including:
 
-   - **Cleanup Step**: The script removes old symbolic links, outdated `.dockerenv` files, and `.yaml` files from the `running` directory, ensuring a fresh start.
+   - **Cleanup Step**: The script removes `.yaml` files from the `running` directory, ensuring a fresh start.
    - **Dependencies Installation**: The script installs all necessary dependencies, including `dialog` for user interactions, `jsonnet` for generating configuration files, `apache2-utils` for authentication, `jq` for JSON processing, and `yq` for YAML processing. It also installs `mkcert` to create local SSL certificates.
    - **Service Configuration**: The script creates necessary networks and directories for various services. Depending on your selection, it sets up directories for STT (speech-to-text), LLM (large language model), LinTO Studio, and Traefik.
    - **Mode Selection**: You will be prompted to choose between 'server' and 'local' deployment modes. If you select 'server' mode, a Let's Encrypt certificate will be automatically generated for secure connections, whereas 'local' mode will generate certificates using `mkcert`.
@@ -57,23 +57,30 @@ This script will deploy all services defined in the `./running` directory as a D
 To customize your deployment, copy `.envdefault` to `.env` and modify the variables as needed. Below is an example based on typical settings in `.envdefault`:
 
 ```ini
-# Directory to be used for storing data used between services (audio uploads, configuration files...)
-LINTO_SHARED_MOUNT=/path/to/shared/mount
-
+# Docker network to be used for the deployment
+DOCKER_NETWORK=linto
 # The name of the Docker stack used for deployment
-LINTO_STACK_NAME=linto-stack
+LINTO_STACK_NAME=linto
 
-# Domain settings (example for local testing, can be yourdmain.com)
-LINTO_DOMAIN=localhost
+# HTTP authentication for accessing some services
+LINTO_HTTP_USER=linto
+LINTO_HTTP_PASSWORD=LINAGORA
 
-# Enable GPU support (set to true if GPU is available)
-ENABLE_GPU=true
+# Docker image tag for LinTO services (e.g., latest, latest-unstable)
+LINTO_IMAGE_TAG=latest-unstable
 
-# Path to SSL certificates for secure connections
-CERTS_DIR=/path/to/certs
+# Directory to be used for storing shared and local data (audio uploads, configuration files, etc.)
+LINTO_SHARED_MOUNT=~/shared_mount
+LINTO_LOCAL_MOUNT=~/deployment_config
+
+# Redis configuration (password for Redis services)
+REDIS_PASSWORD=My_Password
+
+# Theme settings for the LinTO front-end interface
+LINTO_FRONT_THEME=LinTO-green
 ```
 
-The `.env` file allows you to specify paths, stack names, domain settings, GPU usage, and other parameters that help optimize and personalize your deployment. If you choose 'server' mode instead of 'local' mode when launching the script, a Let's Encrypt certificate will be automatically generated for secure connections.
+The .env file allows you to configure Docker networks, authentication, stack names, paths for shared and local mounts, Redis settings, and the visual theme of the front-end. Be sure to adjust these variables according to your deployment needs.
 
 ## Use Cases
 
@@ -156,11 +163,23 @@ This script prepares everything required for a seamless deployment, from clearin
 
 ### `start.sh`
 
-The `start.sh` script deploys the services using Docker Swarm by reading the configuration files located in the `./running` directory. Each service is deployed as part of a stack, ensuring that all services are well-integrated. You do not need to handle the underlying Docker commands—`start.sh` simplifies this process for you.
+The `start.sh` script deploys the services using Docker Swarm by reading the configuration files located in the `./running` directory. Each service is deployed as part of a stack, ensuring that all services are well-integrated. You do not need to handle the underlying Docker commands `start.sh` simplifies this process for you.
 
 ## Browser Configuration for HTTPS (Self-Signed Certificates)
 
 If running locally or using self-signed certificates, browsers may require manual configuration to accept these certificates. You might encounter warnings when accessing the LinTO services via HTTPS. This is expected for self-signed certificates, and you can manually approve the certificate in your browser settings to proceed.
+
+## Using curl with Self-Signed Certificates
+
+When interacting with LinTO services via the command line using curl, self-signed certificates may cause security warnings or connection errors. To bypass these errors for local testing, you can use the -k or --insecure option, which tells curl to ignore certificate validation.
+
+Example:
+
+```bash
+curl -k https://yourdomain.com/api
+```
+
+This will allow curl to proceed without verifying the self-signed certificate. However, for production environments.
 
 ## Scaling Notes
 
