@@ -184,3 +184,47 @@ This will allow curl to proceed without verifying the self-signed certificate. H
 ## Scaling Notes
 
 The provided scripts focus on deploying LinTO on a single-node Docker Swarm; however, you can scale the deployment across multiple nodes by adjusting the Docker Swarm configuration. For larger deployments, adding nodes to your Docker Swarm will help with load distribution and enhance reliability.
+
+## Access to Endpoints
+
+This documentation outlines the different access points for interacting with services through web interfaces, Swagger, and APIs registered behind the gateway. The URLs below use `localhost` as the default value, but they can be adjusted based on the domain used during deployment.
+
+> **Note**: Replace `localhost` with the appropriate domain during deployment to match your configuration.
+
+### Web Interface
+
+The following interfaces can be accessed via a web browser to monitor and manage the system:
+
+- **Studio Front**: Available at [https://localhost/](https://localhost/), this interface allows interaction with the studio front-end.
+- **Swarmpit**: Available at [https://localhost/monitoring-swarmpit/](https://localhost/monitoring-swarmpit/), this interface allows monitoring of Docker Swarm containers and services.
+- **Celery**: Available at [https://localhost/monitoring-celery/](https://localhost/monitoring-celery/), this interface monitors the background tasks run by Celery.
+
+### API Documentation via Swagger
+
+The following APIs expose their documentation via Swagger, enabling easier exploration and testing of there api:
+
+- **Studio API**: [https://localhost/cm-api/apidoc/#/](https://localhost/cm-api/apidoc/#/), documentation for the studio API that manages backend services.
+- **Session API**: [https://localhost/session-api/api-docs/#/](https://localhost/session-api/api-docs/#/), documentation for the API handling user of live sessions.
+- **STT French Whisper v3**: [https://localhost/stt-french-whisper-v3/docs/#/](https://localhost/stt-french-whisper-v3/docs/#/), documentation for the Speech-to-Text API in French (based on Whisper v3).
+- **STT English Whisper v3**: [https://localhost/stt-english-whisper-v3/docs/#/](https://localhost/stt-english-whisper-v3/docs/#/), documentation for the Speech-to-Text API in English (based on Whisper v3).
+- **LLM Gateway**: [https://localhost/llm-gateway/docs/#/](https://localhost/llm-gateway/docs/#/), documentation for the Large Language Model (LLM) Gateway API.
+
+### Exposed API via Traefik
+
+The following APIs are exposed and routed through the Traefik reverse proxy, allowing direct interaction with backend services if enable:
+
+- **Studio API**: [https://localhost/cm-api/](https://localhost/cm-api/)
+- **Session API**: [https://localhost/session-api/](https://localhost/session-api/)
+- **STT French Whisper v3**: [https://localhost/stt-french-whisper-v3/](https://localhost/stt-french-whisper-v3/)
+- **STT English Whisper v3**: [https://localhost/stt-english-whisper-v3/](https://localhost/stt-english-whisper-v3/)
+- **LLM Gateway**: [https://localhost/llm-gateway/](https://localhost/llm-gateway/)
+
+### Exposed API via Gateway
+
+The APIs are also accessible behind the Gateway, centralizing access to the services if enable:
+
+- **Studio API**: [https://localhost/gateway/cm-api/](https://localhost/gateway/cm-api/)
+- **Session API**: [https://localhost/gateway/session-api/](https://localhost/gateway/session-api/)
+- **STT French Whisper v3**: [https://localhost/gateway/stt-french-whisper-v3/](https://localhost/gateway/stt-french-whisper-v3/)
+- **STT English Whisper v3**: [https://localhost/gateway/stt-english-whisper-v3/](https://localhost/gateway/stt-english-whisper-v3/)
+- **LLM Gateway**: [https://localhost/gateway/llm-gateway/](https://localhost/gateway/llm-gateway/)
