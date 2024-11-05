@@ -66,10 +66,10 @@ build_api_gateway() { # Function to build API Gateway
 }
 
 trigger_build_service() {
-    services=$(./scripts/dialog.sh "services")
+    services_results=$(./scripts/dialog.sh "services")
     expose_results=$(./scripts/dialog.sh "expose")
     read expose_traefik expose_api_gateway <<<"$expose_results"
-
+    read speaker_identification services <<< "$services_results"
     # Final output
 
     echo "Selected deployment mode: $LINTO_DOMAIN"
@@ -121,7 +121,7 @@ trigger_build_service() {
                 # No need of building diarization service if there is no stt service
                 if [[ "$services" =~ (^|[[:space:]])(1|2)($|[[:space:]]) ]]; then
                     build_diarization
-                    ./scripts/build-services.sh "diarization" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway" "$gpu_enable"
+                    ./scripts/build-services.sh "diarization" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway" "$gpu_enable" "$diarization_enable" "$speaker_identification"
                 fi
                 ;;
             esac

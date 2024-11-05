@@ -107,7 +107,12 @@ build_stt_en() {
 
 build_diarization() {
     echo "Building Diarization..."
-    generate_yaml_files "services/stt/diarization-pyannote" false false $1
+    if [ "$2" = "true" ]; then
+        generate_yaml_files "services/stt/diarization-pyannote" false false $1
+        generate_yaml_files "services/stt/qdrant-vector-db"
+    else
+        generate_yaml_files "services/stt/diarization-pyannote" false false $1
+    fi
 }
 
 build_live_streaming() {
@@ -142,6 +147,7 @@ main() {
     gateway_exposed="${5:-false}"
     gpu_enable="${6:-false}"
     diarization_enable="${7:-false}"
+    speaker_identification="${8:-false}"
 
     case "$1" in
     stt-fr)
@@ -151,7 +157,7 @@ main() {
         build_stt_en $traefik_exposed $gateway_exposed $gpu_enable $diarization_enable
         ;;
     diarization)
-        build_diarization $gpu_enable
+        build_diarization $gpu_enable $speaker_identification
         ;;
     llm)
         build_llm $traefik_exposed $gateway_exposed
