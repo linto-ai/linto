@@ -69,7 +69,8 @@ build_main_service() {
 build_llm() {
     echo "Building LLM..."
     generate_yaml_files "services/llm/llm-gateway" $1 $2
-    generate_yaml_files "services/llm/vllm"
+    generate_yaml_files "services/stt/task-broker-redis"
+    #generate_yaml_files "services/llm/vllm"
 }
 
 build_studio() {
