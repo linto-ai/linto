@@ -15,14 +15,14 @@ local domain = std.extVar('LINTO_DOMAIN');
 
   //Main blocks
   use_env_file: '', //Set to specified env file (.dockerenv) or leave blank
-  expose_with_traefik: false,
+  expose_with_traefik: true,
   healthcheck: false,
   expose_with_api_gateway: false,
 
   //Traefik
-  traefik_endpoint: '/',
-  traefik_strip_prefix: '/',
-  traefik_server_port: 80,
+  traefik_endpoint: '/transcriber-ws',
+  traefik_strip_prefix: '/transcriber-ws',
+  traefik_server_port: 8080,
   traefik_domain: domain,
   use_basic_auth: false,
 
