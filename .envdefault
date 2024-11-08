@@ -24,5 +24,9 @@ OPENAI_API_TOKEN=sk***
 OPENAI_API_BASE=***
 
 ORGANIZATION_DEFAULT_PERMISSIONS=upload,summary,session
-SUPER_ADMIN_EMAIL=admin@mail.com
-SUPER_ADMIN_PWD=superadminpassword
+SUPER_ADMIN_EMAIL=superadmin@mail.com
+SUPER_ADMIN_PWD=superadmin
+
+# OpenAI
+OPENAI_API_BASE: http://vllm-service:8000/v1
+OPENAI_API_TOKEN : EMPTY
