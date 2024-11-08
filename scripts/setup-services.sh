@@ -95,9 +95,6 @@ trigger_build_service() {
             diarization_enable="stt-diarization-pyannote"
         fi
     fi    
-    if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) ]]; then
-        diarization_enable="stt-diarization-pyannote"
-    fi
     if [[ "$services" =~ (^|[[:space:]])6($|[[:space:]]) ]]; then
         echo "Studio is selected, forcing API Gateway"
         expose_api_gateway=true
