@@ -120,6 +120,23 @@ streaming_service() {
 
     echo "$selected_streaming_services"
 }
+dialog_vllm() {
+    vllm=$(dialog --title "vLLM Backend deployment" --radiolist \
+        "Do you want to deploy the vLLM service?" "$DIALOG_HEIGHT" "$DIALOG_WIDTH" 2 \
+        1 "Yes" off \
+        2 "No" off \
+        3>&1 1>&2 2>&3)
+
+    case "$vllm" in
+    1)
+        vllm_enable="true"
+        ;;
+    2)
+        vllm_enable="false"
+        ;;
+    esac
+    echo "$vllm_enable"
+}
 
 main() {
     case "$1" in
@@ -143,6 +160,9 @@ main() {
         ;;
     streaming_service)
         streaming_service
+        ;;
+    vllm)
+        dialog_vllm
         ;;
     *)
         echo "Usage: $0 {expose|transcription|deployment|gpu|domain|speaker_identification|streaming_service}"

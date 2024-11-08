@@ -56,6 +56,8 @@ generate_yaml_files() {
             -V DIARIZATION_DEFAULT=$diarization_service \
             -V GPU_MODE=$gpu_mode \
             -V ENABLE_SESSION_STUDIO=$enable_session_studio \
+            -V OPENAI_API_BASE=$OPENAI_API_BASE \
+            -V OPENAI_API_TOKEN=$OPENAI_API_TOKEN \
             "${service_dir}/template.jsonnet" | yq eval -P - >"$RUNNING_DIR/$FILE_NAME.yaml"
     fi
 }
@@ -70,7 +72,9 @@ build_llm() {
     echo "Building LLM..."
     generate_yaml_files "services/llm/llm-gateway" $1 $2
     generate_yaml_files "services/stt/task-broker-redis"
-    #generate_yaml_files "services/llm/vllm"
+    if [ "$3" = "true" ]; then
+        generate_yaml_files "services/llm/vllm"
+    fi
 }
 
 build_studio() {
@@ -161,6 +165,7 @@ main() {
     gpu_enable="${6:-false}"
     diarization_enable="${7:-false}"
     speaker_identification="${8:-false}"
+    vllm_enable="${9:-false}"
 
     case "$1" in
     stt-fr)
@@ -173,7 +178,7 @@ main() {
         build_diarization $gpu_enable $speaker_identification
         ;;
     llm)
-        build_llm $traefik_exposed $gateway_exposed
+        build_llm $traefik_exposed $gateway_exposed $vllm_enable
         ;;
     studio)
         # Special rule for studio on param 4 who containing the information about live-streaming
