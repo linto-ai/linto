@@ -108,8 +108,7 @@ build_stt_en() {
 build_diarization() {
     echo "Building Diarization..."
     if [ "$2" = "true" ]; then
-        generate_yaml_files "services/stt/diarization-pyannote" false false $1
-        generate_yaml_files "services/stt/qdrant-vector-db"
+        generate_yaml_files "services/stt/diarization-pyannote-qdrant" false false $1
     else
         generate_yaml_files "services/stt/diarization-pyannote" false false $1
     fi

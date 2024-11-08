@@ -66,10 +66,10 @@ build_api_gateway() { # Function to build API Gateway
 }
 
 trigger_build_service() {
-    services_results=$(./scripts/dialog.sh "services")
+    services=$(./scripts/dialog.sh "services")
     expose_results=$(./scripts/dialog.sh "expose")
     read expose_traefik expose_api_gateway <<<"$expose_results"
-    read speaker_identification services <<< "$services_results"
+
     # Final output
 
     echo "Selected deployment mode: $LINTO_DOMAIN"
@@ -84,8 +84,15 @@ trigger_build_service() {
     gpu_enable=false
     diarization_enable=""
     live_streaming_enable=false
-    if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) ]]; then
-        diarization_enable="stt-diarization-pyannote"
+    speaker_identification="false"
+    if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) && "$services" =~ (^|[[:space:]])(1|2)($|[[:space:]]) ]]; then
+        speaker_identification=$(./scripts/dialog.sh "speaker_identification")
+        
+        if [[ "$speaker_identification" == "true" ]]; then
+            diarization_enable="stt-diarization-pyannote-qdrant"
+        else
+            diarization_enable="stt-diarization-pyannote"
+        fi
     fi
     if [[ "$services" =~ (^|[[:space:]])6($|[[:space:]]) ]]; then
         echo "Studio is selected, forcing API Gateway"
@@ -100,6 +107,7 @@ trigger_build_service() {
 
     # Iterate over each choice entered
     for service in $services; do
+    echo $service
         case "$service" in
         1 | 2 | 3)
             ./scripts/build-config.sh "stt"
