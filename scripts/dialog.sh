@@ -50,7 +50,7 @@ dialog_services_show() {
 
 dialog_services() {
     selected_services=$(dialog_services_show)
-    echo "Selected services: $selected_services"
+    echo "$selected_services"
 }
 
 dialog_speaker_identification() {
