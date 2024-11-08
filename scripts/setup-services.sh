@@ -107,7 +107,6 @@ trigger_build_service() {
 
     # Iterate over each choice entered
     for service in $services; do
-    echo $service
         case "$service" in
         1 | 2 | 3)
             ./scripts/build-config.sh "stt"
