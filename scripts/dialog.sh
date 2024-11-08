@@ -50,7 +50,27 @@ dialog_services_show() {
 
 dialog_services() {
     selected_services=$(dialog_services_show)
-    echo "Selected services: $selected_services"
+    echo "$selected_services"
+}
+
+dialog_speaker_identification() {
+    local speaker_identification="false"
+
+    speaker_identification_choice=$(dialog --title "Speaker Identification" --radiolist \
+        "Enable Speaker Identification?" "$DIALOG_HEIGHT" "$DIALOG_WIDTH" 2 \
+        1 "Enable" off \
+        2 "Disable" off \
+        3>&1 1>&2 2>&3)
+
+    case "$speaker_identification_choice" in
+    1)
+        speaker_identification="true"
+        ;;
+    2)
+        speaker_identification="false"
+        ;;
+    esac
+    echo "$speaker_identification"
 }
 
 dialog_deployment_mode() {
@@ -107,6 +127,9 @@ main() {
         ;;
     domain)
         dialog_domain
+        ;;
+    speaker_identification)
+        dialog_speaker_identification
         ;;
     *)
         echo "Usage: $0 {expose|transcription|deployment|gpu}"
