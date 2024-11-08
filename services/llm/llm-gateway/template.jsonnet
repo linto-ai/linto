@@ -4,6 +4,8 @@ local service = base.Service(config);
 local shared_mount = std.extVar('LINTO_SHARED_MOUNT');
 local network = std.extVar('DOCKER_NETWORK');
 local redis_password = std.extVar('REDIS_PASSWORD');
+local openai_api_base = std.extVar('OPENAI_API_BASE');
+local open_api_token = std.extVar('OPENAI_API_TOKEN');
 
 local patch = {
   services: {
@@ -20,8 +22,8 @@ local patch = {
       environment: {
         PYTHONUNBUFFERED:1,
         SERVICE_NAME:'LLM_Gateway',
-        OPENAI_API_BASE: 'https://chat.ai.linagora.exaion.com/v1/',
-        OPENAI_API_TOKEN:'EMPTY',
+        OPENAI_API_BASE: openai_api_base,
+        OPENAI_API_TOKEN: open_api_token,
         HTTP_PORT:80,
         CONCURRENCY:1,
         TIMEOUT:60,
