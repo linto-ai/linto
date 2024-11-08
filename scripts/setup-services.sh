@@ -82,6 +82,7 @@ trigger_build_service() {
 
     #TODO: we expose to the gateway when studio is selected
     gpu_enable=false
+    enable_vllm=false
     diarization_enable=""
     live_streaming_enable=false
     speaker_identification="false"
@@ -93,6 +94,8 @@ trigger_build_service() {
         else
             diarization_enable="stt-diarization-pyannote"
         fi
+    if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) ]]; then
+        diarization_enable="stt-diarization-pyannote"
     fi
     if [[ "$services" =~ (^|[[:space:]])6($|[[:space:]]) ]]; then
         echo "Studio is selected, forcing API Gateway"
@@ -101,6 +104,9 @@ trigger_build_service() {
     if [[ "$services" =~ (^|[[:space:]])5($|[[:space:]]) ]]; then
         echo "Studio is selected, forcing API Gateway"
         live_streaming_enable=true
+    fi
+    if [[ "$services" =~ (^|[[:space:]])4($|[[:space:]]) ]]; then
+        vllm_enable=$(./scripts/dialog.sh "vllm")
     fi
 
     ./scripts/build-services.sh "main" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE"
@@ -136,7 +142,7 @@ trigger_build_service() {
 
         4)
             ./scripts/build-config.sh "llm"
-            ./scripts/build-services.sh "llm" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway"
+            ./scripts/build-services.sh "llm" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway" "" "" "" "$vllm_enable"
             ;;
         5)
             ./scripts/build-config.sh "live-streaming"

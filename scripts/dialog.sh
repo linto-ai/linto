@@ -110,6 +110,23 @@ dialog_gpu_mode() {
         echo "cpu"
     fi
 }
+dialog_vllm() {
+    vllm=$(dialog --title "vLLM Backend deployment" --radiolist \
+        "Do you want to deploy the vLLM service?" "$DIALOG_HEIGHT" "$DIALOG_WIDTH" 2 \
+        1 "Yes" off \
+        2 "No" off \
+        3>&1 1>&2 2>&3)
+
+    case "$vllm" in
+    1)
+        vllm_enable="true"
+        ;;
+    2)
+        vllm_enable="false"
+        ;;
+    esac
+    echo "$vllm_enable"
+}
 
 main() {
     case "$1" in
@@ -130,6 +147,9 @@ main() {
         ;;
     speaker_identification)
         dialog_speaker_identification
+        ;;
+    vllm)
+        dialog_vllm
         ;;
     *)
         echo "Usage: $0 {expose|transcription|deployment|gpu}"
