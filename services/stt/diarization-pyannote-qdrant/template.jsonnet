@@ -30,13 +30,13 @@ local patch = {
         NVIDIA_DRIVER_CAPABILITIES: 'all',
         MODEL_INFO: '{ "en": "Yes","fr":"Oui"}',
         CONCURRENCY: '1',
-        QDRANT_HOST: 'qdrant-vector-db',
+        QDRANT_HOST: 'stt-qdrant-vector-db',
         QDRANT_PORT: '6333',
         QDRANT_COLLECTION_NAME: 'speaker_embeddings',
         QDRANT_RECREATE_COLLECTION: 'true'
       },
     },
-    'qdrant-vector-db' : {
+    'stt-qdrant-vector-db' : {
       image: 'qdrant/qdrant',
       volumes: [
         shared_mount + '/qdrant_storage:/qdrant/storage:z',
