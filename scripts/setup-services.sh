@@ -83,6 +83,7 @@ trigger_build_service() {
     #TODO: we expose to the gateway when studio is selected
     gpu_enable=false
     vllm_enable=false
+    enable_vllm=false
     diarization_enable=""
     live_streaming_enable=false
     speaker_identification="false"
@@ -95,7 +96,9 @@ trigger_build_service() {
         else
             diarization_enable="stt-diarization-pyannote"
         fi
-    fi    
+    if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) ]]; then
+        diarization_enable="stt-diarization-pyannote"
+    fi
     if [[ "$services" =~ (^|[[:space:]])6($|[[:space:]]) ]]; then
         echo "Studio is selected, forcing API Gateway"
         expose_api_gateway=true
