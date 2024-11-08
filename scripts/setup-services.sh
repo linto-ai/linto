@@ -82,7 +82,7 @@ trigger_build_service() {
 
     #TODO: we expose to the gateway when studio is selected
     gpu_enable=false
-    enable_vllm=false
+    vllm_enable=false
     diarization_enable=""
     live_streaming_enable=false
     speaker_identification="false"
@@ -94,6 +94,7 @@ trigger_build_service() {
         else
             diarization_enable="stt-diarization-pyannote"
         fi
+    fi    
     if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) ]]; then
         diarization_enable="stt-diarization-pyannote"
     fi
