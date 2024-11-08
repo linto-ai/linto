@@ -12,6 +12,7 @@ local patch = {
     [config.service_name]: {
       volumes: [
         shared_mount + '/audios/api_uploads/:/opt/audio',
+        shared_mount + '/audios/speaker_samples:/opt/speaker_samples', # Reference speakers samples
       ],
       networks: [
         'net_stt_services',
@@ -29,7 +30,20 @@ local patch = {
         NVIDIA_DRIVER_CAPABILITIES: 'all',
         MODEL_INFO: '{ "en": "Yes","fr":"Oui"}',
         CONCURRENCY: '1',
+        QDRANT_HOST: 'qdrant-vector-db',
+        QDRANT_PORT: '6333',
+        QDRANT_COLLECTION_NAME: 'speaker_embeddings',
+        QDRANT_RECREATE_COLLECTION: 'true'
       },
+    },
+    'qdrant-vector-db' : {
+      image: 'qdrant/qdrant',
+      volumes: [
+        shared_mount + '/qdrant_storage:/qdrant/storage:z',
+      ],
+      networks: [
+        'net_stt_services'
+      ],
     },
   },
   networks: {
