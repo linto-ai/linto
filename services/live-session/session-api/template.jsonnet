@@ -21,9 +21,7 @@ local patch = {
         # check with JS these env configuration
         SESSION_API_WEBSERVER_HTTP_PORT:'80',
         STREAMING_WS_SECURE: 'true',
-        
         STREAMING_PASSPHRASE:'false',
-        STREAMING_USE_PROXY:'false',
 
         BROKER_HOST: 'session-broker',
         BROKER_PORT: 1883,
