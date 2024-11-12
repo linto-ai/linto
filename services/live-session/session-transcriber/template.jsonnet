@@ -10,6 +10,7 @@ local patch = {
   services: {
     [config.service_name]: {
       networks: [
+        network,
         'session_network',
       ],
       expose: [
