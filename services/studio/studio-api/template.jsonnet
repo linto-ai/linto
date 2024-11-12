@@ -54,6 +54,9 @@ local patch = {
         BROKER_PORT: 1883,
         BROKER_KEEPALIVE: 60,
         BROKER_PROTOCOL: 'mqtt',
+
+        SUPER_ADMIN_EMAIL: 'superadmin@mail.fr',
+        SUPER_ADMIN_PWD: 'superadmin'
       },
       networks: [
         'net_studio',
