@@ -16,7 +16,7 @@ local patch = {
       ],
       environment: {
         COMPONENTS: std.toString(enable_session_studio),
-        DB_MIGRATION_TARGET:'1.5.0',
+        DB_MIGRATION_TARGET:'1.5.2',
         DB_REQUIRE_LOGIN: 'false',
         DB_HOST: 'studio_mongodb',
         DB_PORT:'27017',
@@ -46,6 +46,8 @@ local patch = {
         DISABLE_USER_CREATION:'false',
         EXPORT_TEMPLATE: '',
         WEBSERVER_HTTP_PORT: 80,
+
+        ORGANIZATION_DEFAULT_PERMISSIONS: 'upload,summary,session',
 
         SESSION_API_ENDPOINT: 'http://session-api/v1',
         BROKER_HOST: 'session-broker',
