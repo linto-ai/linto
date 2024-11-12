@@ -56,6 +56,8 @@ This script will deploy all services defined in the `./running` directory as a D
 
 To customize your deployment, copy `.envdefault` to `.env` and modify the variables as needed. Below is an example based on typical settings in `.envdefault`:
 
+[See Detailed Environment Settings](#detailed-environment-settings)
+
 ```ini
 # Docker network to be used for the deployment
 DOCKER_NETWORK=linto
@@ -78,6 +80,13 @@ REDIS_PASSWORD=My_Password
 
 # Theme settings for the LinTO front-end interface
 LINTO_FRONT_THEME=LinTO-green
+
+# Default permissions for new organizations (upload, summary, session)
+ORGANIZATION_DEFAULT_PERMISSIONS=upload,summary,session
+
+# Superuser settings
+SUPER_ADMIN_EMAIL=superadmin@mail.com
+SUPER_ADMIN_PWD=superadmin
 ```
 
 The .env file allows you to configure Docker networks, authentication, stack names, paths for shared and local mounts, Redis settings, and the visual theme of the front-end. Be sure to adjust these variables according to your deployment needs.
@@ -228,3 +237,46 @@ The APIs are also accessible behind the Gateway, centralizing access to the serv
 - **STT French Whisper v3**: [https://localhost/gateway/stt-french-whisper-v3/](https://localhost/gateway/stt-french-whisper-v3/)
 - **STT English Whisper v3**: [https://localhost/gateway/stt-english-whisper-v3/](https://localhost/gateway/stt-english-whisper-v3/)
 - **LLM Gateway**: [https://localhost/gateway/llm-gateway/](https://localhost/gateway/llm-gateway/)
+
+## Detailed Environment Settings
+
+### Creating a Superuser for Back Office Access
+
+The superuser has an administrative access to the back office of studio, which includes managing organization creation, assigning default permissions, and overseeing users within organizations. To set up a superuser, configure the following environment variables in your `.env` file:
+
+```bash
+SUPER_ADMIN_EMAIL=superadmin@mail.fr
+SUPER_ADMIN_PWD=superadminpassword
+```
+
+The superuser will have the authority to define organization-wide settings, manage user roles and can monitore all live sessions.
+
+### Default Permissions for User-Created Organizations
+
+By default, each newly created organization is granted the following permissions, which define what members can do within the organization:
+
+- **Upload**: Grants access to use the transcription service to upload and process media.
+- **Summary**: Enables the use of large language models (LLM) to generate summaries for uploaded media.
+- **Session**: Provides access to the Session API, allowing the organization to create live meetings.
+
+These default permissions can be set up on project startup or adjusted individually in the back office by the superuser.
+To configure default permissions at startup, set the following variable in the `.env` file:
+
+```bash
+ORGANIZATION_DEFAULT_PERMISSIONS=upload,summary,session
+```
+
+> **Note**: If any default permission is removed, future organizations will not have access to that functionality unless the superuser grants it in the back office.
+> **Note**: To disable all permissions, set `ORGANIZATION_DEFAULT_PERMISSIONS=none`
+
+### Member Roles in an Organization
+
+An organization can be structured with various user roles, each granting specific permissions. The default role is **Member**, and each subsequent role inherits the permissions of the previous one, as outlined below:
+
+- **Member**: Can view and edit any media regarding of the media permission.
+- **Uploader**: Can create and upload new media.
+- **Meeting Manager**: Has the ability to initiate and manage sessions.
+- **Maintainer**: Manages all users within the organization.
+- **Admin**: Has full control over all organization actions and settings, including permissions and user management.
+
+These roles allow for a structured, role-based permission system within each organization, ensuring that each user has the appropriate level of access based on their responsibilities.

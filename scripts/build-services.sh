@@ -47,6 +47,9 @@ generate_yaml_files() {
             -V LINTO_SHARED_MOUNT=$LINTO_SHARED_MOUNT \
             -V REDIS_PASSWORD=$REDIS_PASSWORD \
             -V LINTO_IMAGE_TAG=$LINTO_IMAGE_TAG \
+            -V ORGANIZATION_DEFAULT_PERMISSIONS=$ORGANIZATION_DEFAULT_PERMISSIONS \
+            -V SUPER_ADMIN_EMAIL=$SUPER_ADMIN_EMAIL \
+            -V SUPER_ADMIN_PWD=$SUPER_ADMIN_PWD \
             -V LINTO_FRONT_THEME=$LINTO_FRONT_THEME \
             -V EXPOSE_TRAEFIK=$expose_traefik \
             -V EXPOSE_GATEWAY=$expose_gateway \

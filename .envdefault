@@ -1,17 +1,21 @@
 # Generic
+
 DOCKER_NETWORK=linto
 
 # Saas
+
 LINTO_STACK_NAME=linto
 LINTO_HTTP_USER=linto
 LINTO_HTTP_PASSWORD=LINAGORA
 LINTO_IMAGE_TAG=latest-unstable
 
 # Storage paths
+
 LINTO_SHARED_MOUNT=~/shared_mount
 LINTO_LOCAL_MOUNT=~/deployment_config
 
 # REDIS
+
 REDIS_PASSWORD=My_Pasword
 LINTO_FRONT_THEME=LinTO-green
 
