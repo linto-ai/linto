@@ -10,17 +10,16 @@ local patch = {
   services: {
     [config.service_name]: {
       networks: [
+        network,
         'session_network',
       ],
       expose: [
         "8889/udp",
-        "1935",
-        "8080",
+        "1935"
       ],
       ports: [
         "8889:8889/udp",
-        "1935:1935",
-        "8081:8080",
+        "1935:1935"
       ],
       environment: {
         BROKER_HOST: 'session-broker',
@@ -40,7 +39,7 @@ local patch = {
         STREAMING_WS_TCP_PORT:'8080', # TCP port for Websocket listener
         STREAMING_PROXY_SRT_UDP_PORT:'8889', # UDP port for SRT listener
         STREAMING_PROXY_RTMP_TCP_PORT:'1935', # TCP port for RTMP listener
-        STREAMING_PROXY_WS_TCP_PORT:'8081', # TCP port for Websocket listener
+        STREAMING_PROXY_WS_TCP_PORT:'443', # TCP port for Websocket listener
       },
     },
   },

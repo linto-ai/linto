@@ -47,6 +47,9 @@ generate_yaml_files() {
             -V LINTO_SHARED_MOUNT=$LINTO_SHARED_MOUNT \
             -V REDIS_PASSWORD=$REDIS_PASSWORD \
             -V LINTO_IMAGE_TAG=$LINTO_IMAGE_TAG \
+            -V ORGANIZATION_DEFAULT_PERMISSIONS=$ORGANIZATION_DEFAULT_PERMISSIONS \
+            -V SUPER_ADMIN_EMAIL=$SUPER_ADMIN_EMAIL \
+            -V SUPER_ADMIN_PWD=$SUPER_ADMIN_PWD \
             -V LINTO_FRONT_THEME=$LINTO_FRONT_THEME \
             -V EXPOSE_TRAEFIK=$expose_traefik \
             -V EXPOSE_GATEWAY=$expose_gateway \
@@ -107,7 +110,11 @@ build_stt_en() {
 
 build_diarization() {
     echo "Building Diarization..."
-    generate_yaml_files "services/stt/diarization-pyannote" false false $1
+    if [ "$2" = "true" ]; then
+        generate_yaml_files "services/stt/diarization-pyannote-qdrant" false false $1
+    else
+        generate_yaml_files "services/stt/diarization-pyannote" false false $1
+    fi
 }
 
 build_live_streaming() {
@@ -142,6 +149,7 @@ main() {
     gateway_exposed="${5:-false}"
     gpu_enable="${6:-false}"
     diarization_enable="${7:-false}"
+    speaker_identification="${8:-false}"
 
     case "$1" in
     stt-fr)
@@ -151,7 +159,7 @@ main() {
         build_stt_en $traefik_exposed $gateway_exposed $gpu_enable $diarization_enable
         ;;
     diarization)
-        build_diarization $gpu_enable
+        build_diarization $gpu_enable $speaker_identification
         ;;
     llm)
         build_llm $traefik_exposed $gateway_exposed

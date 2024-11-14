@@ -84,8 +84,15 @@ trigger_build_service() {
     gpu_enable=false
     diarization_enable=""
     live_streaming_enable=false
-    if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) ]]; then
-        diarization_enable="stt-diarization-pyannote"
+    speaker_identification="false"
+    if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) && "$services" =~ (^|[[:space:]])(1|2)($|[[:space:]]) ]]; then
+        speaker_identification=$(./scripts/dialog.sh "speaker_identification")
+        
+        if [[ "$speaker_identification" == "true" ]]; then
+            diarization_enable="stt-diarization-pyannote-qdrant"
+        else
+            diarization_enable="stt-diarization-pyannote"
+        fi
     fi
     if [[ "$services" =~ (^|[[:space:]])6($|[[:space:]]) ]]; then
         echo "Studio is selected, forcing API Gateway"
@@ -121,7 +128,7 @@ trigger_build_service() {
                 # No need of building diarization service if there is no stt service
                 if [[ "$services" =~ (^|[[:space:]])(1|2)($|[[:space:]]) ]]; then
                     build_diarization
-                    ./scripts/build-services.sh "diarization" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway" "$gpu_enable"
+                    ./scripts/build-services.sh "diarization" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway" "$gpu_enable" "$diarization_enable" "$speaker_identification"
                 fi
                 ;;
             esac

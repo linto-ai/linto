@@ -20,9 +20,8 @@ local patch = {
 
         # check with JS these env configuration
         SESSION_API_WEBSERVER_HTTP_PORT:'80',
-        
+        STREAMING_WS_SECURE: 'true',
         STREAMING_PASSPHRASE:'false',
-        STREAMING_USE_PROXY:'false',
 
         BROKER_HOST: 'session-broker',
         BROKER_PORT: 1883,
@@ -34,6 +33,8 @@ local patch = {
         DB_PASSWORD: 'mypass',
         DB_NAME: 'session_DB',
         DB_PORT: 5432,
+
+        STREAMING_PROXY_WS_TCP_PORT: "443",
       },
     },
   },

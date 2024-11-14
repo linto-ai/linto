@@ -8,6 +8,11 @@ local domain = std.extVar("LINTO_DOMAIN");
 
 local enable_session_studio = std.extVar('ENABLE_SESSION_STUDIO');
 
+local orga_permission = std.extVar('ORGANIZATION_DEFAULT_PERMISSIONS');
+local admin_email = std.extVar('SUPER_ADMIN_EMAIL');
+local admin_psw = std.extVar('SUPER_ADMIN_PWD');
+
+
 local patch = {
   services: {
     [config.service_name]: {
@@ -16,7 +21,7 @@ local patch = {
       ],
       environment: {
         COMPONENTS: std.toString(enable_session_studio),
-        DB_MIGRATION_TARGET:'1.5.0',
+        DB_MIGRATION_TARGET:'1.5.2',
         DB_REQUIRE_LOGIN: 'false',
         DB_HOST: 'studio_mongodb',
         DB_PORT:'27017',
@@ -47,11 +52,16 @@ local patch = {
         EXPORT_TEMPLATE: '',
         WEBSERVER_HTTP_PORT: 80,
 
+        ORGANIZATION_DEFAULT_PERMISSIONS: orga_permission,
+
         SESSION_API_ENDPOINT: 'http://session-api/v1',
         BROKER_HOST: 'session-broker',
         BROKER_PORT: 1883,
         BROKER_KEEPALIVE: 60,
         BROKER_PROTOCOL: 'mqtt',
+
+        SUPER_ADMIN_EMAIL: admin_email,
+        SUPER_ADMIN_PWD: admin_psw
       },
       networks: [
         'net_studio',
