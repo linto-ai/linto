@@ -89,6 +89,7 @@ trigger_build_service() {
     if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) && "$services" =~ (^|[[:space:]])(1|2)($|[[:space:]]) ]]; then
         speaker_identification=$(./scripts/dialog.sh "speaker_identification")
 
+
         if [[ "$speaker_identification" == "true" ]]; then
             diarization_enable="stt-diarization-pyannote-qdrant"
         else

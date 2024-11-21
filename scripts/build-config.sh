@@ -115,6 +115,41 @@ build_session() {
     mkdir -p ${LINTO_LOCAL_MOUNT}/database/postgres/db-session-database/
 }
 
+build_khaldi-french-streaming() {
+    echo "Building Live streaming..."
+    TARGET_FOLDER="${LINTO_SHARED_MOUNT}/models/AMs/french"
+
+    if [ ! -d "$TARGET_FOLDER" ]; then
+        ZIP_URL="https://dl.linto.ai/downloads/model-distribution/acoustic-models/fr-FR/linSTT_AM_fr-FR_v2.2.0.zip"
+        ZIP_FILE="${TARGET_FOLDER}/linSTT_AM_fr-FR_v2.2.0.zip"
+
+        echo "Creating target folder: $TARGET_FOLDER"
+        mkdir -p "$TARGET_FOLDER"
+        curl -L -o "$ZIP_FILE" "$ZIP_URL"
+        unzip -o "$ZIP_FILE" -d "$TARGET_FOLDER"
+        rm "$ZIP_FILE"
+    fi
+
+    TARGET_FOLDER="${LINTO_SHARED_MOUNT}/models/LMs/french"
+
+    if [ ! -d "$TARGET_FOLDER" ]; then
+        ZIP_URL="https://dl.linto.ai/downloads/model-distribution/decoding-graphs/LVCSR/fr-FR/decoding_graph_fr-FR_Big_v2.2.0.zip"
+        ZIP_FILE="${TARGET_FOLDER}/linSTT_AM_fr-FR_v2.2.0.zip"
+        echo "Creating target folder: $TARGET_FOLDER"
+        mkdir -p "$TARGET_FOLDER"
+        curl -L -o "$ZIP_FILE" "$ZIP_URL"
+        unzip -o "$ZIP_FILE" -d "$TARGET_FOLDER"
+        rm "$ZIP_FILE"
+    fi
+}
+
+build_whisper-streaming() {
+    echo "Building whisper..."
+
+    mkdir -p ${LINTO_SHARED_MOUNT}/audios/api_uploads \
+        ${LINTO_SHARED_MOUNT}/models/
+}
+
 build_kaldi-french-streaming() {
     echo "Building Live streaming..."
     TARGET_FOLDER="${LINTO_SHARED_MOUNT}/models/AMs/french"

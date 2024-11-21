@@ -138,6 +138,16 @@ dialog_vllm() {
     echo "$vllm_enable"
 }
 
+streaming_service() {
+    selected_streaming_services=$(dialog --title "Streaming Services" --checklist \
+        "Streaming service selection?" "$DIALOG_HEIGHT" "$DIALOG_WIDTH" 2 \
+        1 "Linto french kaldi streaming service" off \
+        2 "Linto whisper streaming service" off \
+        3>&1 1>&2 2>&3)
+
+    echo "$selected_streaming_services"
+}
+
 main() {
     case "$1" in
     expose)
@@ -163,6 +173,9 @@ main() {
         ;;
     vllm)
         dialog_vllm
+        ;;
+    streaming_service)
+        streaming_service
         ;;
     *)
         echo "Usage: $0 {expose|transcription|deployment|gpu|domain|speaker_identification|streaming_service}"
