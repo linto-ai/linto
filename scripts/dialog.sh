@@ -42,7 +42,7 @@ dialog_services_show() {
         2 "English Transcription service" off \
         3 "Enable diarization service" off \
         4 "Summarization service" off \
-        5 "Live streaming service" off \
+        5 "Session streaming service" off \
         6 "LinTO Studio" off \
         7 "Monitoring tools" off \
         3>&1 1>&2 2>&3 | tr '\n' ' ' | sed 's/ *$//'
@@ -128,6 +128,16 @@ dialog_vllm() {
     echo "$vllm_enable"
 }
 
+streaming_service() {
+    selected_streaming_services=$(dialog --title "Streaming Services" --checklist \
+        "Streaming service selection?" "$DIALOG_HEIGHT" "$DIALOG_WIDTH" 2 \
+        1 "Linto french kaldi streaming service" off \
+        2 "Linto whisper streaming service" off \
+        3>&1 1>&2 2>&3)
+
+    echo "$selected_streaming_services"
+}
+
 main() {
     case "$1" in
     expose)
@@ -151,8 +161,11 @@ main() {
     vllm)
         dialog_vllm
         ;;
+    streaming_service)
+        streaming_service
+        ;;
     *)
-        echo "Usage: $0 {expose|transcription|deployment|gpu}"
+        echo "Usage: $0 {expose|transcription|deployment|gpu|domain|speaker_identification|streaming_service}"
         exit 1
         ;;
     esac

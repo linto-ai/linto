@@ -122,13 +122,23 @@ build_diarization() {
     fi
 }
 
-build_live_streaming() {
+build_session_streaming() {
     echo "Building Live Streaming..."
     generate_yaml_files "services/live-session/session-api" $1 $2
     generate_yaml_files "services/live-session/session-broker"
     generate_yaml_files "services/live-session/session-postgres"
     generate_yaml_files "services/live-session/session-scheduler"
     generate_yaml_files "services/live-session/session-transcriber"
+}
+
+build_khaldi-french-streaming() {
+    echo "Building Live Streaming with khaldi..."
+    generate_yaml_files "services/live-session/stt-khaldi-french-streaming" $1 $2
+}
+
+build_whisper-streaming() {
+    echo "Building Live Streaming with whisper..."
+    generate_yaml_files "services/live-session/stt-whisper-streaming" $1 $2
 }
 
 build_monitoring() {
@@ -174,8 +184,14 @@ main() {
         # Special rule for studio on param 4 who containing the information about live-streaming
         build_studio $4
         ;;
-    live-streaming)
-        build_live_streaming $traefik_exposed $gateway_exposed
+    session-streaming)
+        build_session_streaming $traefik_exposed $gateway_exposed
+        ;;
+    streaming-khaldi-french-streaming)
+        build_khaldi-french-streaming $traefik_exposed $gateway_exposed
+        ;;
+    streaming-whisper-streaming)
+        build_whisper-streaming $traefik_exposed $gateway_exposed
         ;;
     monitoring)
         build_monitoring

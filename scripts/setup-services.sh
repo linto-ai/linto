@@ -88,7 +88,7 @@ trigger_build_service() {
     speaker_identification="false"
     if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) && "$services" =~ (^|[[:space:]])(1|2)($|[[:space:]]) ]]; then
         speaker_identification=$(./scripts/dialog.sh "speaker_identification")
-        
+
         if [[ "$speaker_identification" == "true" ]]; then
             diarization_enable="stt-diarization-pyannote-qdrant"
         else
@@ -143,8 +143,23 @@ trigger_build_service() {
             ./scripts/build-services.sh "llm" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway" "" "" "" "$vllm_enable"
             ;;
         5)
-            ./scripts/build-config.sh "live-streaming"
-            ./scripts/build-services.sh "live-streaming" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway"
+
+            ./scripts/build-config.sh "session-streaming"
+            ./scripts/build-services.sh "session-streaming" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway"
+
+            streaming_service_select=$(./scripts/dialog.sh "streaming_service")
+            if [[ "$streaming_service_select" =~ (^|[[:space:]])(1)($|[[:space:]]) ]]; then
+                echo "Building Khaldi French Streaming..."
+                ./scripts/build-config.sh "streaming-khaldi-french-streaming"
+                ./scripts/build-services.sh "streaming-khaldi-french-streaming" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway"
+            fi
+
+            if [[ "$streaming_service_select" =~ (^|[[:space:]])(2)($|[[:space:]]) ]]; then
+                echo "Building whisper Streaming..."
+                ./scripts/build-config.sh "streaming-whisper-streaming"
+                ./scripts/build-services.sh "streaming-whisper-streaming" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway"
+            fi
+
             ;;
         6)
             ./scripts/build-config.sh "studio"
