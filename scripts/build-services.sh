@@ -133,7 +133,7 @@ build_khaldi-french-streaming() {
 
 build_whisper-streaming() {
     echo "Building Live Streaming with whisper..."
-    generate_yaml_files "services/live-session/stt-whisper-streaming" $1 $2
+    generate_yaml_files "services/live-session/stt-whisper-streaming" $1 $2 $3
 }
 
 build_monitoring() {
@@ -185,7 +185,7 @@ main() {
         build_khaldi-french-streaming $traefik_exposed $gateway_exposed
         ;;
     streaming-whisper-streaming)
-        build_whisper-streaming $traefik_exposed $gateway_exposed
+        build_whisper-streaming $traefik_exposed $gateway_exposed $gpu_enable
         ;;
     monitoring)
         build_monitoring
