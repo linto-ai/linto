@@ -152,8 +152,12 @@ trigger_build_service() {
 
             if [[ "$streaming_service_select" =~ (^|[[:space:]])(2)($|[[:space:]]) ]]; then
                 echo "Building whisper Streaming..."
+                if [ "$gpu_enable" = false ]; then
+                    gpu_enable=$(./scripts/dialog.sh "gpu")
+                fi
+
                 ./scripts/build-config.sh "streaming-whisper-streaming"
-                ./scripts/build-services.sh "streaming-whisper-streaming" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway"
+                ./scripts/build-services.sh "streaming-whisper-streaming" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway" "$gpu_enable"
             fi
 
             ;;

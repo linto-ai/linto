@@ -4,6 +4,8 @@ local service = base.Service(config);
 local shared_mount = std.extVar('LINTO_SHARED_MOUNT');
 local network = std.extVar('DOCKER_NETWORK');
 
+local gpu_mode = std.extVar('GPU_MODE');
+
 
 local patch = {
   services: {
@@ -24,6 +26,9 @@ local patch = {
         STREAMING_PORT: '80',
         CONCURRENCY: '1',
         LANGUAGE: 'fr-FR',
+        DEVICE: gpu_mode,
+        NVIDIA_VISIBLE_DEVICES: '0',
+        NVIDIA_DRIVER_CAPABILITIES: 'all',
       },
     },
   },
