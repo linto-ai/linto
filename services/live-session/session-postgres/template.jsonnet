@@ -14,7 +14,7 @@ local patch = {
         'net_studio'
       ],
       volumes: [
-        local_mount+'/database/postgres/db-session-database:/data/db',
+        local_mount+'/database/postgres/db-session-database:/var/lib/postgresql/data',
       ],
       environment: {
         POSTGRES_PASSWORD: 'mypass',
