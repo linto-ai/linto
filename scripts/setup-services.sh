@@ -145,9 +145,9 @@ trigger_build_service() {
 
             streaming_service_select=$(./scripts/dialog.sh "streaming_service")
             if [[ "$streaming_service_select" =~ (^|[[:space:]])(1)($|[[:space:]]) ]]; then
-                echo "Building Khaldi French Streaming..."
-                ./scripts/build-config.sh "streaming-khaldi-french-streaming"
-                ./scripts/build-services.sh "streaming-khaldi-french-streaming" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway"
+                echo "Building Kaldi French Streaming..."
+                ./scripts/build-config.sh "streaming-kaldi-french-streaming"
+                ./scripts/build-services.sh "streaming-kaldi-french-streaming" "$LINTO_DOMAIN" "$DEPLOYMENT_MODE" "$expose_traefik" "$expose_api_gateway"
             fi
 
             if [[ "$streaming_service_select" =~ (^|[[:space:]])(2)($|[[:space:]]) ]]; then

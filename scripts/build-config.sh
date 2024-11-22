@@ -114,7 +114,7 @@ build_session() {
     mkdir -p ${LINTO_LOCAL_MOUNT}/database/postgres/db-session-database/
 }
 
-build_khaldi-french-streaming() {
+build_kaldi-french-streaming() {
     echo "Building Live streaming..."
     TARGET_FOLDER="${LINTO_SHARED_MOUNT}/models/AMs/french"
 
@@ -185,8 +185,8 @@ main() {
     session-streaming)
         build_session
         ;;
-    streaming-khaldi-french-streaming)
-        build_khaldi-french-streaming
+    streaming-kaldi-french-streaming)
+        build_kaldi-french-streaming
         ;;
     streaming-whisper-streaming)
         build_whisper-streaming

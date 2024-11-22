@@ -9,7 +9,7 @@ local expose_with_gateway = std.extVar('EXPOSE_GATEWAY') == "true";
 {
   //Generals
   build_me: true,  //Set to false to disable this build as a YAML file in ./running dir
-  service_name: 'stt-khaldi-french-streaming',
+  service_name: 'stt-kaldi-french-streaming',
   image: 'lintoai/linto-stt-kaldi:' + tag,
   reserve_memory: '',  //128M
   reserve_cpu: '',  //0.5
@@ -24,8 +24,8 @@ local expose_with_gateway = std.extVar('EXPOSE_GATEWAY') == "true";
   expose_with_api_gateway: expose_with_gateway,
 
   //Traefik
-  traefik_endpoint: '/stt-khaldi-french-streaming',
-  traefik_strip_prefix: '/stt-khaldi-french-streaming',
+  traefik_endpoint: '/stt-kaldi-french-streaming',
+  traefik_strip_prefix: '/stt-kaldi-french-streaming',
   traefik_server_port: 80,
   traefik_domain: domain,
   use_basic_auth: true,
@@ -53,7 +53,7 @@ local expose_with_gateway = std.extVar('EXPOSE_GATEWAY') == "true";
 
   gateway_define_endpoints: [
     {
-      endpoint: 'stt-khaldi-french-streaming',
+      endpoint: 'stt-kaldi-french-streaming',
       middlewares_order: 'logs',
       middlewares: [
         { name: 'logs', params: { debug: '*' } }
