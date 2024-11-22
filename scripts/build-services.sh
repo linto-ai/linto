@@ -131,9 +131,9 @@ build_session_streaming() {
     generate_yaml_files "services/live-session/session-transcriber"
 }
 
-build_khaldi-french-streaming() {
-    echo "Building Live Streaming with khaldi..."
-    generate_yaml_files "services/live-session/stt-khaldi-french-streaming" $1 $2
+build_kaldi-french-streaming() {
+    echo "Building Live Streaming with kaldi..."
+    generate_yaml_files "services/live-session/stt-kaldi-french-streaming" $1 $2
 }
 
 build_whisper-streaming() {
@@ -187,8 +187,8 @@ main() {
     session-streaming)
         build_session_streaming $traefik_exposed $gateway_exposed
         ;;
-    streaming-khaldi-french-streaming)
-        build_khaldi-french-streaming $traefik_exposed $gateway_exposed
+    streaming-kaldi-french-streaming)
+        build_kaldi-french-streaming $traefik_exposed $gateway_exposed
         ;;
     streaming-whisper-streaming)
         build_whisper-streaming $traefik_exposed $gateway_exposed $gpu_enable
