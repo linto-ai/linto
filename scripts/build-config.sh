@@ -42,7 +42,8 @@ build_stt() {
     mkdir -p ${LINTO_LOCAL_MOUNT}/database/db-stt-services-data \
         ${LINTO_SHARED_MOUNT}/audios/api_uploads \
         ${LINTO_SHARED_MOUNT}/redis/ \
-        ${LINTO_SHARED_MOUNT}/models/
+        ${LINTO_SHARED_MOUNT}/models/ \
+        ${LINTO_SHARED_MOUNT}/qdrant_storage/
 
     envsubst <"$CONFIG_TEMPLATES/redis/redis.conf" >"${LINTO_SHARED_MOUNT}/redis/redis.conf"
     create_networks "net_stt_services,task_broker_services"
