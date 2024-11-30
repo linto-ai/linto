@@ -37,7 +37,7 @@ generate_yaml_files() {
                 "${service_dir}/config.jsonnet" | jq -r '.service_name'
         )
 
-        echo -e "\e[32mBuilding $FILE_NAME.yml\e[0m"
+        echo -e "\e[32mBuilding $FILE_NAME.yaml\e[0m"
 
         jsonnet -J ./jsonnet \
             -V LINTO_DOMAIN=$LINTO_DOMAIN \
