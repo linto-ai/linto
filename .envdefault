@@ -28,3 +28,7 @@ SUPER_ADMIN_PWD=superadmin
 # OpenAI
 OPENAI_API_TOKEN=sk***
 OPENAI_API_BASE=***
+
+ORGANIZATION_DEFAULT_PERMISSIONS=upload,summary,session
+SUPER_ADMIN_EMAIL=admin@mail.com
+SUPER_ADMIN_PWD=superadminpassword
