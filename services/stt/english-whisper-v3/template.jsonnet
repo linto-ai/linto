@@ -54,11 +54,6 @@ local patch = {
         replicas: 1, // constraints might be needed
         restart_policy: {
           condition: 'on-failure',
-        },
-        placement: {
-          constraints: [
-            'node.role==worker'
-          ]
         }
       },
       environment: {
