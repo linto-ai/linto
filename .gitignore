@@ -1,2 +1,3 @@
 **/running/*.yaml
 websocket.pcap
+.env

@@ -96,6 +96,7 @@ trigger_build_service() {
         else
             diarization_enable="stt-diarization-pyannote"
         fi
+    fi
     if [[ "$services" =~ (^|[[:space:]])3($|[[:space:]]) ]]; then
         diarization_enable="stt-diarization-pyannote"
     fi

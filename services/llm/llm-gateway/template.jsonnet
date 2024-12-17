@@ -12,7 +12,8 @@ local patch = {
     [config.service_name]: {
       volumes: [
         shared_mount + '/models/:/root/.cache',
-        shared_mount + '/llm_services/:/usr/src/services/'
+        shared_mount + '/llm/.hydra-conf:/usr/src/.hydra-conf',
+        shared_mount + '/llm/prompts:/usr/src/prompts'
       ],
       networks: [
         'net_llm_services',

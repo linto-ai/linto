@@ -52,9 +52,9 @@ build_stt() {
 build_llm() {
     echo "Building LLM..."
 
-    mkdir -p "${LINTO_SHARED_MOUNT}/llm_services/" \
-        ${LINTO_SHARED_MOUNT}/models/
-    cp -r "${CONFIG_TEMPLATES}/llm/"* "${LINTO_SHARED_MOUNT}/llm_services/"
+    mkdir -p ${LINTO_SHARED_MOUNT}/models/
+    
+    cp -r "${CONFIG_TEMPLATES}/llm" "${LINTO_SHARED_MOUNT}"
 
     create_networks "net_llm_services"
 }
