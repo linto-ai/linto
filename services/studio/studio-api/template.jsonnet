@@ -28,7 +28,7 @@ local patch = {
         DB_NAME: 'conversations',
 
         GATEWAY_SERVICES: 'http://api-gateway',
-        LLM_GATEWAY_SERVICES: 'http://llm-gateway/',
+        LLM_GATEWAY_SERVICES: 'http://llm-gateway',
 
         CORS_ENABLED:'true',
         CORS_API_WHITELIST: 'https://'+domain,
