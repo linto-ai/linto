@@ -1,4 +1,24 @@
-# LinTO Deployment Tool
+# LinTO Deployment Tool (Docker Swarm)
+
+> **Note: This repository is maintained for legacy Docker Swarm deployments only.**
+>
+> **For new deployments, we recommend using [linto-deploy](https://github.com/linto-ai/linto-deploy)** - a modern CLI tool for deploying LinTO services to Kubernetes (K3S). It offers:
+> - Interactive setup wizard
+> - Profile-based multi-cluster management
+> - Helm charts for production-ready deployments
+> - Automatic secret generation and TLS configuration
+> - GPU support with time-slicing
+>
+> ```bash
+> # Quick start with linto-deploy
+> pip install linto-deploy
+> linto wizard
+> linto deploy my-cluster
+> ```
+>
+> See the [linto-deploy documentation](https://github.com/linto-ai/linto-deploy) for details.
+
+---
 
 ## Overview
 

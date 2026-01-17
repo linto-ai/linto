@@ -1,5 +1,7 @@
 # Architecture
 
+> **Pour déployer LinTO Studio sur Kubernetes (K3S), utilisez [linto-deploy](https://github.com/linto-ai/linto-deploy).**
+
 ![LinTo Studio Architecture](./linto-studio.png)
 
 ## Légende détaillée
